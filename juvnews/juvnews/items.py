@@ -9,7 +9,7 @@ import scrapy
 
 
 class JuvnewsItem(scrapy.Item):
-	title = scrapy.Field()
-	url = scrapy.Field()
-	date = scrapy.Field()
-	source = scrapy.Field()
+    title = scrapy.Field()
+    url = scrapy.Field()
+    date = scrapy.Field()
+    source = scrapy.Field()

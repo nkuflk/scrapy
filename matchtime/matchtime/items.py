@@ -9,9 +9,11 @@ import scrapy
 
 
 class MatchtimeItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+    # match type
     label = scrapy.Field()
+    # match date
     date = scrapy.Field()
+    # match time
     time = scrapy.Field()
+    # match name
     name = scrapy.Field()

@@ -4,6 +4,10 @@
 import scrapy
 from matchtime.items import MatchtimeItem
 
+# config
+# filter by label
+label = {u'足球': 1}
+
 
 class MatchtimeSpider(scrapy.spider.Spider):
     name = 'matchtime'
@@ -21,4 +25,5 @@ class MatchtimeSpider(scrapy.spider.Spider):
                 item['label'] = subsel.xpath('@label').extract()
                 item['time'] = subsel.xpath('text()').extract()[0]
                 item['name'] = subsel.xpath('text()').extract()[0]
-                print item
+                if filter(lambda x: x in item['label'][0].split(','), label.keys()):
+                    print item['label'][0].encode('utf-8')

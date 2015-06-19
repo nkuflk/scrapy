@@ -3,6 +3,7 @@
 
 import scrapy
 from matchtime.items import MatchtimeItem
+import MySQLdb
 
 # config
 # filter by label
@@ -27,3 +28,6 @@ class MatchtimeSpider(scrapy.spider.Spider):
                 item['name'] = subsel.xpath('text()').extract()[0]
                 if filter(lambda x: x in item['label'][0].split(','), label.keys()):
                     print item['label'][0].encode('utf-8')
+
+    def initDB(self):
+        pass

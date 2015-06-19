@@ -3,7 +3,6 @@
 
 import scrapy
 from matchtime.items import MatchtimeItem
-import MySQLdb
 
 # config
 # filter by label

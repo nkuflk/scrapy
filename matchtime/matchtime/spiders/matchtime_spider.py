@@ -30,8 +30,13 @@ class MatchtimeSpider(scrapy.spider.Spider):
                 item['label'] = subsel.xpath('@label').extract()
                 item['time'] = subsel.xpath('text()').extract()[0]
                 item['name'] = subsel.xpath('text()').extract()[0]
+                self.handle(item)
                 if filter(lambda x: x in item['label'][0].split(','), label.keys()):
                     print hashlib.md5(item['label'][0].encode('utf-8')).hexdigest()
 
     def initDB(self):
         db = DB()
+        self.cur = db.getCur()
+
+    def handle(self, item):
+        pass

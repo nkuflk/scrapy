@@ -17,7 +17,7 @@ matchtime_tag = """create table if not exists matchtime_tag (
 
 
 class DB():
-    insert_matchtime = "insert into matchtime(md5,date,time,name) values(%s,%s,%s,%s);"
+    insert_matchtime = 'insert into matchtime(md5,date,time,name) values("%s","%s","%s","%s");'
     select_match_by_md5 = 'select * from matchtime where md5="%s";'
 
     def __init__(self):

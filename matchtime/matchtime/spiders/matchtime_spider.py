@@ -36,6 +36,10 @@ class MatchtimeSpider(scrapy.spider.Spider):
 
     def initDB(self):
         self.db = DB()
+        self.cur = self.db.getCur()
 
     def handle(self, item):
-        print self.db.select_match_by_md5 % ('asdf')
+        sql = self.db.select_match_by_md5 % (hashlib.md5(item['name'].encode('utf-8'))).hexdigest()
+        cnt = self.cur.execute(sql)
+        if cnt == 0:
+            print 0

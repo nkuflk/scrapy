@@ -45,4 +45,5 @@ class MatchtimeSpider(scrapy.spider.Spider):
         cnt = self.cur.execute(sql)
         if cnt == 0:
             sql = self.db.insert_matchtime % (md5, item['date'], item['time'], item['name'])
-            print sql
+            self.cur.execute(sql)
+            self.db.commit()

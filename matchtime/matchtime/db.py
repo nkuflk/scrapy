@@ -22,9 +22,16 @@ class DB():
 
     def __init__(self):
         self.db = MySQLdb.connect('localhost', 'root', 'love', 'matchtime')
-        cur = self.getCur()
-        cur.execute(matchtime)
-        cur.execute(matchtime_tag)
+        self.cur = self.getCur()
+        self.createTables()
+
+    def __del__(self):
+        self.cur.close()
+        self.db.close()
+
+    def createTables(self):
+        self.cur.execute(matchtime)
+        self.cur.execute(matchtime_tag)
 
     def getCur(self):
         return self.db.cursor()

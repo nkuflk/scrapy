@@ -8,12 +8,12 @@ matchtime = """create table if not exists matchtime (
                 md5 char(40),
                 date char(20),
                 time char(20),
-                name varchar(100))"""
+                name varchar(100)) character set = utf8"""
 
 matchtime_tag = """create table if not exists matchtime_tag (
                     id int auto_increment not null primary key,
                     md5 char(40),
-                    tag varchar(50))"""
+                    tag varchar(50)) character set = utf8"""
 
 
 class DB():

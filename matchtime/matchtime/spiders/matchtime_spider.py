@@ -32,7 +32,7 @@ class MatchtimeSpider(scrapy.spider.Spider):
                 item['time'] = time_name[0:5]
                 item['name'] = time_name[6:-1]
                 self.handle(item)
-                # if filter(lambda x: x in item['label'][0].split(','), label.keys()):
+                #  if filter(lambda x: x in item['label'][0].split(','), label.keys()):
                 #    print hashlib.md5(item['label'][0].encode('utf-8')).hexdigest()
 
     def initDB(self):

@@ -6,7 +6,6 @@ import hashlib
 from matchtime.items import MatchtimeItem
 from matchtime.db import DB
 
-# config
 # filter by label
 label = {u'足球': 1}
 
@@ -31,6 +30,7 @@ class MatchtimeSpider(scrapy.spider.Spider):
                 time_name = subsel.xpath('text()').extract()[0]
                 item['time'] = time_name[0:5]
                 item['name'] = time_name[6:-1]
+                item['md5'] = hashlib.md5(item['name'].encode('utf-8')).hexdigest()
                 self.handle(item)
                 #  if filter(lambda x: x in item['label'][0].split(','), label.keys()):
                 #    print hashlib.md5(item['label'][0].encode('utf-8')).hexdigest()
@@ -39,12 +39,7 @@ class MatchtimeSpider(scrapy.spider.Spider):
         self.db = DB()
 
     def handle(self, item):
-        md5 = hashlib.md5(item['name'].encode('utf-8')).hexdigest()
-        item['md5'] = md5
-        self.db.insertMatchtime(item)
-        # sql = self.db.select_match_by_md5 % (md5)
-        # cnt = self.cur.execute(sql)
-        # if cnt == 0:
-        #    sql = self.db.insert_matchtime % (md5, item['date'], item['time'], item['name'])
-        #    self.cur.execute(sql)
-        #    self.db.commit()
+        if len(self.db.selectMatchtime(item['md5']))==0:
+            self.db.insertMatchtime(item)
+        else:
+            self.db.updateMatchtime(item)

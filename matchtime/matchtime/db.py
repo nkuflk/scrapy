@@ -19,10 +19,12 @@ matchtime_index = "create index if not exists matchtime_index on matchtime(md5);
 
 matchtime_tag_index = "create index if not exists matchtime_tag_index on matchtime_tag(md5);"
 
+insert_matchtime = 'insert into matchtime(md5,date,time,name) values("%s","%s","%s","%s");'
+
+select_match_by_md5 = 'select * from matchtime where md5="%s";'
+
 
 class DB():
-    insert_matchtime = 'insert into matchtime(md5,date,time,name) values("%s","%s","%s","%s");'
-    select_match_by_md5 = 'select * from matchtime where md5="%s";'
 
     def __init__(self):
         self.db = sqlite3.connect('matchtime.db')
@@ -41,5 +43,6 @@ class DB():
         self.cur.execute(matchtime_tag_index)
         self.db.commit()
 
-    def getCur(self):
-        return self.db.cursor()
+    def insertMatchtime(self, item):
+        sql = insert_matchtime % (item['md5'], item['date'], item['time'], item['name'])
+        print sql

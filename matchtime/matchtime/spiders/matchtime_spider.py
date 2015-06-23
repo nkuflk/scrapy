@@ -41,9 +41,9 @@ class MatchtimeSpider(scrapy.spider.Spider):
 
     def handle(self, item):
         md5 = hashlib.md5(item['name'].encode('utf-8')).hexdigest()
-        sql = self.db.select_match_by_md5 % (md5)
-        cnt = self.cur.execute(sql)
-        if cnt == 0:
-            sql = self.db.insert_matchtime % (md5, item['date'], item['time'], item['name'])
-            self.cur.execute(sql)
-            self.db.commit()
+        #sql = self.db.select_match_by_md5 % (md5)
+        #cnt = self.cur.execute(sql)
+        #if cnt == 0:
+        #    sql = self.db.insert_matchtime % (md5, item['date'], item['time'], item['name'])
+        #    self.cur.execute(sql)
+        #    self.db.commit()

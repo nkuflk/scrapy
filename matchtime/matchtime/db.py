@@ -1,19 +1,19 @@
 #!/usr/bin/env python
 # encoding: utf-8
 
-import MySQLdb
+import sqlite3
 
 matchtime = """create table if not exists matchtime (
-                id int auto_increment not null primary key,
-                md5 char(40),
+                id int auto_increment primary key not null,
+                md5 char(40) not null,
                 date char(20),
                 time char(20),
-                name varchar(100)) character set = utf8"""
+                name varchar(100))"""
 
 matchtime_tag = """create table if not exists matchtime_tag (
-                    id int auto_increment not null primary key,
-                    md5 char(40),
-                    tag varchar(50)) character set = utf8"""
+                    id int auto_increment primary key not null,
+                    md5 char(40) not null,
+                    tag varchar(50))"""
 
 
 class DB():
@@ -21,17 +21,18 @@ class DB():
     select_match_by_md5 = 'select * from matchtime where md5="%s";'
 
     def __init__(self):
-        self.db = MySQLdb.connect('localhost', 'root', 'love', 'matchtime')
-        self.cur = self.getCur()
-        self.createTables()
+        self.db = sqlite3.connect('matchtime.db')
+        self.cur = self.db.cursor()
+        # self.createTables()
+        print 'success'
 
     def __del__(self):
         self.cur.close()
         self.db.close()
 
     def createTables(self):
-        self.cur.execute(matchtime)
-        self.cur.execute(matchtime_tag)
+        self.db.execute(matchtime)
+        self.db.execute(matchtime_tag)
 
     def getCur(self):
         return self.db.cursor()

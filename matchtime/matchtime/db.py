@@ -15,6 +15,10 @@ matchtime_tag = """create table if not exists matchtime_tag (
                     md5 char(40) not null,
                     tag varchar(50))"""
 
+matchtime_index = "create index if not exists matchtime_index on matchtime(md5);"
+
+matchtime_tag_index = "create index if not exists matchtime_tag_index on matchtime_tag(md5);"
+
 
 class DB():
     insert_matchtime = 'insert into matchtime(md5,date,time,name) values("%s","%s","%s","%s");'
@@ -23,7 +27,7 @@ class DB():
     def __init__(self):
         self.db = sqlite3.connect('matchtime.db')
         self.cur = self.db.cursor()
-        # self.createTables()
+        self.createTables()
         print 'success'
 
     def __del__(self):
@@ -31,8 +35,11 @@ class DB():
         self.db.close()
 
     def createTables(self):
-        self.db.execute(matchtime)
-        self.db.execute(matchtime_tag)
+        self.cur.execute(matchtime)
+        self.cur.execute(matchtime_tag)
+        self.cur.execute(matchtime_index)
+        self.cur.execute(matchtime_tag_index)
+        self.db.commit()
 
     def getCur(self):
         return self.db.cursor()

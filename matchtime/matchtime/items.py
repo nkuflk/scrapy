@@ -9,6 +9,8 @@ import scrapy
 
 
 class MatchtimeItem(scrapy.Item):
+    # match name md5 value
+    md5 = scrapy.Field()
     # match type
     label = scrapy.Field()
     # match date

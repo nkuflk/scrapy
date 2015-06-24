@@ -19,6 +19,8 @@ matchtime_index = "create index if not exists matchtime_index on matchtime(md5);
 
 matchtime_tag_index = "create index if not exists matchtime_tag_index on matchtime_tag(md5);"
 
+matchtime_tag_index2 = "create index if not exists matchtime_tag_index2 on matchtime_tag(md5, tag);"
+
 insert_matchtime = 'insert into matchtime(md5,date,time,name) values("%s","%s","%s","%s");'
 
 select_match_by_md5 = 'select * from matchtime where md5="%s";'
@@ -44,6 +46,7 @@ class DB():
         self.cur.execute(matchtime_tag)
         self.cur.execute(matchtime_index)
         self.cur.execute(matchtime_tag_index)
+        self.cur.execute(matchtime_tag_index2)
         self.db.commit()
 
     def insertMatchtime(self, item):

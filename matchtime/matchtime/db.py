@@ -25,6 +25,8 @@ select_match_by_md5 = 'select * from matchtime where md5="%s";'
 
 update_match_by_md5 = 'update matchtime set date="%s", time="%s", name="%s" where md5="%s";'
 
+insert_matchtime_tag = 'insert into matchtime_tag(md5,tag) values("%s","%s");'
+
 
 class DB():
 
@@ -58,3 +60,6 @@ class DB():
         sql = update_match_by_md5 % (item['date'], item['time'], item['name'], item['md5'])
         self.cur.execute(sql)
         self.db.commit()
+
+    def insertMatchtimeTag(self, item):
+        pass
